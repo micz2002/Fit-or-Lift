@@ -91,6 +91,7 @@ public class HelloController implements Initializable {
                 }
                 setCheckBoxListCells();
                 DBHelloController.setItemsAsStringList(foodListView.getItems()); //zapisuje elementy z listy do statycznej listy Stringow
+              //  foodListView.setItems(DBHelloController.getItemsAsStringList());
 
             }
         } catch (IOException e) {
@@ -111,14 +112,19 @@ public class HelloController implements Initializable {
 
     private void setCheckBoxListCells() {
         foodListView.setCellFactory(CheckBoxListCell.forListView(item -> {
-            BooleanProperty observable = new SimpleBooleanProperty();
-            observable.addListener((obs, wasSelected, isNowSelected) -> {
-                        System.out.println("Check box for " + item + " changed from " + wasSelected + " to " + isNowSelected);
-                        if (isNowSelected)
-                            System.out.println(item);
+            BooleanProperty observable = DBHelloController.getStringBooleanPropertyMap().get(item);
+
+            if (observable == null) {
+                observable = new SimpleBooleanProperty(false); // Domyślnie ustaw na false, jeśli nie ma jeszcze wartości
+                observable.addListener((obs, wasSelected, isNowSelected) -> {
+                    System.out.println("Check box for " + item + " changed from " + wasSelected + " to " + isNowSelected);
+                    if (isNowSelected) {
+                        System.out.println(item);
                     }
-            );
-            DBHelloController.getStringBooleanPropertyMap().put(item, observable);
+                });
+                DBHelloController.getStringBooleanPropertyMap().put(item, observable);
+            }
+
             return observable;
         }));
 
