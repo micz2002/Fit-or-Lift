@@ -7,4 +7,8 @@ module pl.poiw.kalkulatorkaloriiapi {
 
     opens pl.poiw.kalkulatorkaloriiapi to javafx.fxml, com.google.gson;
     exports pl.poiw.kalkulatorkaloriiapi;
+    exports pl.poiw.kalkulatorkaloriiapi.controller;
+    opens pl.poiw.kalkulatorkaloriiapi.controller to com.google.gson, javafx.fxml;
+    exports pl.poiw.kalkulatorkaloriiapi.model;
+    opens pl.poiw.kalkulatorkaloriiapi.model to com.google.gson, javafx.fxml;
 }

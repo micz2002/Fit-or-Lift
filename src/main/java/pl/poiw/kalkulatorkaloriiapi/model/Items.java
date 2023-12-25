@@ -1,4 +1,7 @@
-package pl.poiw.kalkulatorkaloriiapi;
+package pl.poiw.kalkulatorkaloriiapi.model;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.collections.ObservableList;
 
 public class Items
 {

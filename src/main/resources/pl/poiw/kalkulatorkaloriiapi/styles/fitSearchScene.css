@@ -1,0 +1,11 @@
+.list-view .check-box {
+    -fx-background-color: #02cb02; /* Kolor tła */
+    -fx-text-fill: #ff0000; /* Kolor tekstu */
+    -fx-padding: 5; /* Wewnętrzny odstęp */
+    -fx-border-color: #0030d2; /* Kolor obramowania */
+}
+
+.list-view .check-box:selected {
+    -fx-background-color: #fff400; /* Kolor tła dla zaznaczonego CheckBox */
+
+}

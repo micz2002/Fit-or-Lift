@@ -1,4 +1,4 @@
-package pl.poiw.kalkulatorkaloriiapi;
+package pl.poiw.kalkulatorkaloriiapi.model;
 
 public class Product
 {
