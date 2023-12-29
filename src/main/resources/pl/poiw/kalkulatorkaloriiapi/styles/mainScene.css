@@ -1,0 +1,37 @@
+
+#fitButton {
+    -fx-background-color: #54ec5a; /* Zielony kolor tła */
+    -fx-text-fill: #f6f6f6; /* Kolor tekstu (biały na zielonym tle) */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+    -fx-transition-duration: 2s; /* Czas trwania animacji */
+}
+
+#fitButton:hover {
+    /*-fx-background-color:*/
+    /*        linear-gradient(to bottom, #03d710, #48e83e),*/
+    /*        linear-gradient(to top, #03d710, #48e83e);*/
+    -fx-transition-delay: 1s;
+    -fx-background-color: #04ff0e; /* Zielony kolor tła */
+    -fx-text-fill: #000000; /* Kolor tekstu (biały na zielonym tle) */
+}
+
+#liftButton {
+    -fx-background-color: #ffffff; /* Zielony kolor tła */
+    -fx-text-fill: #000000; /* Kolor tekstu (biały na zielonym tle) */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-cursor: hand;
+}
+
+#liftButton:hover {
+    -fx-background-color: #000000; /* Zielony kolor tła */
+    -fx-text-fill: #ffffff; /* Kolor tekstu (biały na zielonym tle) */
+}
+
+#mainSceneAnchorPane {
+    -fx-background-color: #a6bd9c;
+}

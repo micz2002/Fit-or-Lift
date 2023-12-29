@@ -6,9 +6,6 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,9 +19,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import pl.poiw.kalkulatorkaloriiapi.HelloApplication;
-import pl.poiw.kalkulatorkaloriiapi.model.DBHelloController;
+import pl.poiw.kalkulatorkaloriiapi.model.ModelDB;
 import pl.poiw.kalkulatorkaloriiapi.model.Items;
 import pl.poiw.kalkulatorkaloriiapi.model.Product;
 
@@ -33,7 +29,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class HelloController implements Initializable {
+public class FitSearchController implements Initializable {
 
     @FXML
     private TextField kcalTextField;
@@ -49,13 +45,14 @@ public class HelloController implements Initializable {
     private Parent root;
 
     @FXML
-    public void switchToMainScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("fxml/mainScene.fxml")));
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    public void switchToPreviousScene(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("fxml/fitMainScene.fxml")));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
     @FXML
     void getProduct(ActionEvent event) {
 
@@ -63,7 +60,7 @@ public class HelloController implements Initializable {
 
         String query = productTextField.getText();
         Request request = new Request.Builder()
-                .url("https://api.calorieninjas.com/v1/nutrition?query="+query)
+                .url("https://api.calorieninjas.com/v1/nutrition?query=" + query)
                 .get()
                 .addHeader("X-Api-Key", "Y0gboJMx0d3q8EvasAnmTg==yjCO2a4uVcOoVaFc")
                 .build();
@@ -87,11 +84,13 @@ public class HelloController implements Initializable {
 //                            return items.isSelectedProperty();
 //                        }
 //                    }));
-                    foodListView.getItems().add("name: " + i.getName() + ", kcal/100g: "+ i.getCalories());
+                    //foodListView.getItems().add("name: " + i.getName() + ", kcal/100g: " + i.getCalories());
+                    foodListView.getItems().add(i.toString());
+                    ModelDB.getObservableListItems().add(i);
                 }
                 setCheckBoxListCells();
-                DBHelloController.setItemsAsStringList(foodListView.getItems()); //zapisuje elementy z listy do statycznej listy Stringow
-              //  foodListView.setItems(DBHelloController.getItemsAsStringList());
+                ModelDB.setItemsAsStringList(foodListView.getItems()); //zapisuje elementy z listy do statycznej listy Stringow
+
 
             }
         } catch (IOException e) {
@@ -103,8 +102,8 @@ public class HelloController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         foodListView.getStylesheets().add(HelloApplication.class.getResource("styles/fitSearchScene.css").toExternalForm());
 
-        if(DBHelloController.getItemsAsStringList() != null) {
-            foodListView.setItems(DBHelloController.getItemsAsStringList());
+        if (ModelDB.getItemsAsStringList() != null) {
+            foodListView.setItems(ModelDB.getItemsAsStringList());
 
             setCheckBoxListCellsFromMap();
         }
@@ -112,7 +111,7 @@ public class HelloController implements Initializable {
 
     private void setCheckBoxListCells() {
         foodListView.setCellFactory(CheckBoxListCell.forListView(item -> {
-            BooleanProperty observable = DBHelloController.getStringBooleanPropertyMap().get(item);
+            BooleanProperty observable = ModelDB.getStringBooleanPropertyMap().get(item);
 
             if (observable == null) {
                 observable = new SimpleBooleanProperty(false); // Domyślnie ustaw na false, jeśli nie ma jeszcze wartości
@@ -122,14 +121,19 @@ public class HelloController implements Initializable {
                         System.out.println(item);
                     }
                 });
-                DBHelloController.getStringBooleanPropertyMap().put(item, observable);
+                ModelDB.getStringBooleanPropertyMap().put(item, observable);
             }
+
+//            if(observable.getValue()) {
+//                int startIndex = item
+//            }
 
             return observable;
         }));
 
     }
+
     private void setCheckBoxListCellsFromMap() {
-        foodListView.setCellFactory(CheckBoxListCell.forListView(item -> DBHelloController.getStringBooleanPropertyMap().get(item)));
+        foodListView.setCellFactory(CheckBoxListCell.forListView(item -> ModelDB.getStringBooleanPropertyMap().get(item)));
     }
 }

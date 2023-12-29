@@ -1,0 +1,15 @@
+.button {
+    -fx-background-image: url("../pictures/acceptButton.png");
+    -fx-background-size: 40px; /* dostosuj rozmiar obrazu do przycisku */
+    -fx-background-repeat: no-repeat; /* nie powtarzaj obrazu */
+    -fx-background-position: center; /* wyśrodkuj obraz */
+    -fx-text-fill: white; /* Kolor tekstu, aby był widoczny na tle obrazu */
+    -fx-background-radius: 100%; /* Ustaw promień zaokrąglenia na 50% (wartość może być dostosowana) */
+    -fx-border-width: 0; /* Wyłącz obramowanie przycisku */
+    -fx-padding: 0; /* Wyłącz wewnętrzne odstępy przycisku */
+}
+
+.button:hover {
+    -fx-blend-mode:MULTIPLY ;
+    -fx-cursor: hand;
+}

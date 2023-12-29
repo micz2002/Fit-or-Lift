@@ -17,7 +17,7 @@ public class SceneController {
     private Parent root;
 
     public void switchToFitScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(HelloApplication.class.getResource("fxml/fitSearchScene.fxml"));
+        root = FXMLLoader.load(HelloApplication.class.getResource("fxml/fitMainScene.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
