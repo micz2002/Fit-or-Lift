@@ -10,7 +10,6 @@ import java.util.Map;
 public class ModelDB {
     private static ObservableList<String> itemsAsStringList;
     private static Map<String, BooleanProperty> stringBooleanPropertyMap = new HashMap<>();
-   // private static Map<Items, BooleanProperty> stringBooleanPropertyMap = new HashMap<>();
 
     private static ObservableList<Items> observableListItems = FXCollections.observableArrayList();
 

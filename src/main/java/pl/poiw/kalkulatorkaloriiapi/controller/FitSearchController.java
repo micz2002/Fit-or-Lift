@@ -76,7 +76,7 @@ public class FitSearchController implements Initializable {
                 Items[] items = product.getItems();
 
                 for (Items i : items) {
-                    System.out.println(i);
+
                     kcalTextField.setText(i.getCalories() + " kcal/100g");
 //                    foodListView.setCellFactory(CheckBoxListCell.forListView(Items::isSelectedProperty, new Callback<Items, ObservableValue<Boolean>>() {
 //                        @Override
@@ -85,8 +85,20 @@ public class FitSearchController implements Initializable {
 //                        }
 //                    }));
                     //foodListView.getItems().add("name: " + i.getName() + ", kcal/100g: " + i.getCalories());
-                    foodListView.getItems().add(i.toString());
-                    ModelDB.getObservableListItems().add(i);
+
+                    //COS TU NEI DZIALA
+//                    if(!foodListView.getItems().isEmpty()) {
+//                        for (String s : foodListView.getItems()) {
+//                            boolean equalItems = i.toString().equals(s);
+//                            if (equalItems) {
+//                                foodListView.getItems().add(i.toString());
+//                                ModelDB.getObservableListItems().add(i);
+//                            }
+//                        }
+//                    }else {
+                        foodListView.getItems().add(i.toString());
+                        ModelDB.getObservableListItems().add(i);
+//                    }
                 }
                 setCheckBoxListCells();
                 ModelDB.setItemsAsStringList(foodListView.getItems()); //zapisuje elementy z listy do statycznej listy Stringow
@@ -115,18 +127,23 @@ public class FitSearchController implements Initializable {
 
             if (observable == null) {
                 observable = new SimpleBooleanProperty(false); // Domyślnie ustaw na false, jeśli nie ma jeszcze wartości
+                BooleanProperty finalObservable = observable;
                 observable.addListener((obs, wasSelected, isNowSelected) -> {
                     System.out.println("Check box for " + item + " changed from " + wasSelected + " to " + isNowSelected);
                     if (isNowSelected) {
                         System.out.println(item);
                     }
+                    if(finalObservable.getValue()) {
+                        int startIndex = item.indexOf("name = ") + "name = ".length();
+                        int endIndex = item.indexOf(",", startIndex);
+                        String nameValue = item.substring(startIndex , endIndex).trim();
+                        System.out.println(nameValue);
+                    }
                 });
                 ModelDB.getStringBooleanPropertyMap().put(item, observable);
             }
 
-//            if(observable.getValue()) {
-//                int startIndex = item
-//            }
+
 
             return observable;
         }));

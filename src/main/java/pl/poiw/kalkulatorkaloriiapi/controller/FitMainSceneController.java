@@ -34,6 +34,11 @@ public class FitMainSceneController implements Initializable {
         switchScene(event, "fitSearchScene.fxml");
     }
 
+    @FXML
+    public void switchToChartScene(ActionEvent event ) throws IOException {
+       switchScene(event, "chartScene.fxml");
+    }
+
     private void switchScene(ActionEvent event, String sceneName) throws IOException{
         root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("fxml/" + sceneName)));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
