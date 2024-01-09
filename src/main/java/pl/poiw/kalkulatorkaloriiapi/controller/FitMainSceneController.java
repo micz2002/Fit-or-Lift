@@ -1,6 +1,5 @@
 package pl.poiw.kalkulatorkaloriiapi.controller;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +11,9 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.poiw.kalkulatorkaloriiapi.HelloApplication;
 import pl.poiw.kalkulatorkaloriiapi.model.Items;
-import pl.poiw.kalkulatorkaloriiapi.model.ModelDB;
+import pl.poiw.kalkulatorkaloriiapi.model.Meal;
+import pl.poiw.kalkulatorkaloriiapi.model.MealDB;
+import pl.poiw.kalkulatorkaloriiapi.model.BreakfastModelDB;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,7 +23,19 @@ import java.util.ResourceBundle;
 public class FitMainSceneController implements Initializable {
 
     @FXML
-    private Label kcalLabel1;
+    private Label kcalBreakfastLabel;
+
+    @FXML
+    private Label kcalBrunchLabel;
+
+    @FXML
+    private Label kcalDinnerLabel;
+
+    @FXML
+    private Label kcalLunchLabel;
+
+    @FXML
+    private Label kcalSnackLabel;
    private Parent root;
    @FXML
     public void switchToPreviousScene(ActionEvent event) throws IOException {
@@ -34,9 +47,32 @@ public class FitMainSceneController implements Initializable {
         switchScene(event, "fitSearchScene.fxml");
     }
 
+    //zrobic tak aby przekazywac info o tym jaki posilek jest wybrany np poprzez wyslanie info do labela na scenie nastepej
+    //a potem odczytanie go i na tej podstawie uzywac odpowiednich struktur z ModelDB
     @FXML
-    public void switchToChartScene(ActionEvent event ) throws IOException {
+    public void switchBreakfastToChartScene(ActionEvent event ) throws IOException {
        switchScene(event, "chartScene.fxml");
+        MealDB.setMeal(Meal.BREAKFAST);
+    }
+    @FXML
+    public void switchBrunchToChartScene(ActionEvent event ) throws IOException {
+        switchScene(event, "chartScene.fxml");
+        MealDB.setMeal(Meal.BRUNCH);
+    }
+    @FXML
+    public void switchLunchToChartScene(ActionEvent event ) throws IOException {
+        switchScene(event, "chartScene.fxml");
+        MealDB.setMeal(Meal.LUNCH);
+    }
+    @FXML
+    public void switchSnackToChartScene(ActionEvent event ) throws IOException {
+        switchScene(event, "chartScene.fxml");
+        MealDB.setMeal(Meal.SNACK);
+    }
+    @FXML
+    public void switchDinnerToChartScene(ActionEvent event ) throws IOException {
+        switchScene(event, "chartScene.fxml");
+        MealDB.setMeal(Meal.DINNER);
     }
 
     private void switchScene(ActionEvent event, String sceneName) throws IOException{
@@ -50,25 +86,36 @@ public class FitMainSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-       if(ModelDB.getItemsAsStringList() != null) {
+       if(BreakfastModelDB.getItemsAsStringList() != null) {
            float sumCalories = 0;
            float sumProtein = 0;
            float sumFat = 0;
            float sumCarbohydrates = 0;
-           //dodac strukture aby dodawac tylko zaznaczone produkty
-           for(Items i : ModelDB.getObservableListItems()) {
-               float calories = Float.parseFloat(i.getCalories());
-               sumCalories += calories;
-               float protein = Float.parseFloat(i.getProtein_g());
-               sumProtein += protein;
-               float fat = Float.parseFloat(i.getFat_total_g());
-               sumFat += fat;
-               float carbohydrates = Float.parseFloat(i.getCarbohydrates_total_g());
-               sumCarbohydrates += carbohydrates;
+
+           for(Items i : BreakfastModelDB.getObservableListItems()) {
+
+               final boolean[] shouldBeCounted = new boolean[1];
+
+               //dodawanie tylko zaznaczonych produktów
+                BreakfastModelDB.getStringBooleanPropertyMap().forEach((keyItemAsString, valueBooleanProperty) -> {
+                   if(keyItemAsString.equals(i.toString()) && valueBooleanProperty.getValue()) {
+                       shouldBeCounted[0] = true;
+                   }
+               });
+
+                if(shouldBeCounted[0]) {
+                    float calories = Float.parseFloat(i.getCalories());
+                    float protein = Float.parseFloat(i.getProtein_g());
+                    float fat = Float.parseFloat(i.getFat_total_g());
+                    float carbohydrates = Float.parseFloat(i.getCarbohydrates_total_g());
+                    sumCalories += calories;
+                    sumProtein += protein;
+                    sumFat += fat;
+                    sumCarbohydrates += carbohydrates;
+                }
            }
-           kcalLabel1.setText("Kcal: " + sumCalories + " P: " + sumProtein
+           kcalBreakfastLabel.setText("Kcal: " + sumCalories + " P: " + sumProtein
            + " F: " + sumFat + " C: " + sumCarbohydrates);
        }
-
     }
 }

@@ -4,7 +4,6 @@ package pl.poiw.kalkulatorkaloriiapi.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,12 +14,11 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import pl.poiw.kalkulatorkaloriiapi.HelloApplication;
 import pl.poiw.kalkulatorkaloriiapi.model.Items;
-import pl.poiw.kalkulatorkaloriiapi.model.ModelDB;
+import pl.poiw.kalkulatorkaloriiapi.model.BreakfastModelDB;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,21 +44,32 @@ public class ChartSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        if (ModelDB.getItemsAsStringList() != null) {
+        if (BreakfastModelDB.getItemsAsStringList() != null) {
             float sumCarbohydrates = 0;
             float sumFat = 0;
             float sumCalories = 0;
             float sumProtein = 0;
             //dodac strukture aby dodawac tylko zaznaczone produkty
-            for (Items i : ModelDB.getObservableListItems()) {
-                float calories = Float.parseFloat(i.getCalories());
-                sumCalories += calories;
-                float protein = Float.parseFloat(i.getProtein_g());
-                sumProtein += protein;
-                float fat = Float.parseFloat(i.getFat_total_g());
-                sumFat += fat;
-                float carbohydrates = Float.parseFloat(i.getCarbohydrates_total_g());
-                sumCarbohydrates += carbohydrates;
+            for (Items i : BreakfastModelDB.getObservableListItems()) {
+                final boolean[] shouldBeCounted = new boolean[1];
+
+                //dodawanie tylko zaznaczonych produktów
+                BreakfastModelDB.getStringBooleanPropertyMap().forEach((keyItemAsString, valueBooleanProperty) -> {
+                    if(keyItemAsString.equals(i.toString()) && valueBooleanProperty.getValue()) {
+                        shouldBeCounted[0] = true;
+                    }
+                });
+
+                if(shouldBeCounted[0]) {
+                    float calories = Float.parseFloat(i.getCalories());
+                    float protein = Float.parseFloat(i.getProtein_g());
+                    float fat = Float.parseFloat(i.getFat_total_g());
+                    float carbohydrates = Float.parseFloat(i.getCarbohydrates_total_g());
+                    sumCalories += calories;
+                    sumProtein += protein;
+                    sumFat += fat;
+                    sumCarbohydrates += carbohydrates;
+                }
             }
             ObservableList<PieChart.Data> pieChartData =
                     FXCollections.observableArrayList(

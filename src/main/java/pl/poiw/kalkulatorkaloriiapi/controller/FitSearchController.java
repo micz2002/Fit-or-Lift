@@ -20,7 +20,7 @@ import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import pl.poiw.kalkulatorkaloriiapi.HelloApplication;
-import pl.poiw.kalkulatorkaloriiapi.model.ModelDB;
+import pl.poiw.kalkulatorkaloriiapi.model.BreakfastModelDB;
 import pl.poiw.kalkulatorkaloriiapi.model.Items;
 import pl.poiw.kalkulatorkaloriiapi.model.Product;
 
@@ -78,15 +78,9 @@ public class FitSearchController implements Initializable {
                 for (Items i : items) {
 
                     kcalTextField.setText(i.getCalories() + " kcal/100g");
-//                    foodListView.setCellFactory(CheckBoxListCell.forListView(Items::isSelectedProperty, new Callback<Items, ObservableValue<Boolean>>() {
-//                        @Override
-//                        public ObservableValue<Boolean> call(Items items) {
-//                            return items.isSelectedProperty();
-//                        }
-//                    }));
                     //foodListView.getItems().add("name: " + i.getName() + ", kcal/100g: " + i.getCalories());
 
-                    //COS TU NEI DZIALA
+                    //COS TU NEI DZIALA [ogolnie ten kod ma zapobiegac duplikatom przy wywolywaniu api
 //                    if(!foodListView.getItems().isEmpty()) {
 //                        for (String s : foodListView.getItems()) {
 //                            boolean equalItems = i.toString().equals(s);
@@ -97,11 +91,11 @@ public class FitSearchController implements Initializable {
 //                        }
 //                    }else {
                         foodListView.getItems().add(i.toString());
-                        ModelDB.getObservableListItems().add(i);
+                        BreakfastModelDB.getObservableListItems().add(i);
 //                    }
                 }
                 setCheckBoxListCells();
-                ModelDB.setItemsAsStringList(foodListView.getItems()); //zapisuje elementy z listy do statycznej listy Stringow
+                BreakfastModelDB.setItemsAsStringList(foodListView.getItems()); //zapisuje elementy z listy do statycznej listy Stringow
 
 
             }
@@ -114,8 +108,8 @@ public class FitSearchController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         foodListView.getStylesheets().add(HelloApplication.class.getResource("styles/fitSearchScene.css").toExternalForm());
 
-        if (ModelDB.getItemsAsStringList() != null) {
-            foodListView.setItems(ModelDB.getItemsAsStringList());
+        if (BreakfastModelDB.getItemsAsStringList() != null) {
+            foodListView.setItems(BreakfastModelDB.getItemsAsStringList());
 
             setCheckBoxListCellsFromMap();
         }
@@ -123,7 +117,7 @@ public class FitSearchController implements Initializable {
 
     private void setCheckBoxListCells() {
         foodListView.setCellFactory(CheckBoxListCell.forListView(item -> {
-            BooleanProperty observable = ModelDB.getStringBooleanPropertyMap().get(item);
+            BooleanProperty observable = BreakfastModelDB.getStringBooleanPropertyMap().get(item);
 
             if (observable == null) {
                 observable = new SimpleBooleanProperty(false); // Domyślnie ustaw na false, jeśli nie ma jeszcze wartości
@@ -140,7 +134,7 @@ public class FitSearchController implements Initializable {
                         System.out.println(nameValue);
                     }
                 });
-                ModelDB.getStringBooleanPropertyMap().put(item, observable);
+                BreakfastModelDB.getStringBooleanPropertyMap().put(item, observable);
             }
 
 
@@ -151,6 +145,6 @@ public class FitSearchController implements Initializable {
     }
 
     private void setCheckBoxListCellsFromMap() {
-        foodListView.setCellFactory(CheckBoxListCell.forListView(item -> ModelDB.getStringBooleanPropertyMap().get(item)));
+        foodListView.setCellFactory(CheckBoxListCell.forListView(item -> BreakfastModelDB.getStringBooleanPropertyMap().get(item)));
     }
 }

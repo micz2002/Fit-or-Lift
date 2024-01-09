@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ModelDB {
+public class BreakfastModelDB {
     private static ObservableList<String> itemsAsStringList;
     private static Map<String, BooleanProperty> stringBooleanPropertyMap = new HashMap<>();
 
@@ -18,14 +18,14 @@ public class ModelDB {
     }
 
     public static void setObservableListItems(ObservableList<Items> observableListItems) {
-        ModelDB.observableListItems = observableListItems;
+        BreakfastModelDB.observableListItems = observableListItems;
     }
 
     public static ObservableList<String> getItemsAsStringList() {
         return itemsAsStringList;
     }
     public static void setItemsAsStringList(ObservableList<String> itemsAsStringList) {
-        ModelDB.itemsAsStringList = itemsAsStringList;
+        BreakfastModelDB.itemsAsStringList = itemsAsStringList;
     }
 
     public static Map<String, BooleanProperty> getStringBooleanPropertyMap() {
@@ -33,6 +33,6 @@ public class ModelDB {
     }
 
     public static void setStringBooleanPropertyMap(Map<String, BooleanProperty> stringBooleanPropertyMap) {
-        ModelDB.stringBooleanPropertyMap = stringBooleanPropertyMap;
+        BreakfastModelDB.stringBooleanPropertyMap = stringBooleanPropertyMap;
     }
 }

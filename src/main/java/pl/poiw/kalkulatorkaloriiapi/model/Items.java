@@ -3,6 +3,8 @@ package pl.poiw.kalkulatorkaloriiapi.model;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.ObservableList;
 
+import java.util.Objects;
+
 public class Items
 {
     private String sodium_mg;
@@ -153,5 +155,18 @@ public class Items
     public String toString()
     {
         return "Items [sodium_mg = "+sodium_mg+", sugar_g = "+sugar_g+", fat_total_g = "+fat_total_g+", cholesterol_mg = "+cholesterol_mg+", protein_g = "+protein_g+", name = "+name+", fiber_g = "+fiber_g+", calories = "+calories+", serving_size_g = "+serving_size_g+", fat_saturated_g = "+fat_saturated_g+", carbohydrates_total_g = "+carbohydrates_total_g+", potassium_mg = "+potassium_mg+"]";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Items items = (Items) o;
+        return Objects.equals(sodium_mg, items.sodium_mg) && Objects.equals(sugar_g, items.sugar_g) && Objects.equals(fat_total_g, items.fat_total_g) && Objects.equals(cholesterol_mg, items.cholesterol_mg) && Objects.equals(protein_g, items.protein_g) && Objects.equals(name, items.name) && Objects.equals(fiber_g, items.fiber_g) && Objects.equals(calories, items.calories) && Objects.equals(serving_size_g, items.serving_size_g) && Objects.equals(fat_saturated_g, items.fat_saturated_g) && Objects.equals(carbohydrates_total_g, items.carbohydrates_total_g) && Objects.equals(potassium_mg, items.potassium_mg);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sodium_mg, sugar_g, fat_total_g, cholesterol_mg, protein_g, name, fiber_g, calories, serving_size_g, fat_saturated_g, carbohydrates_total_g, potassium_mg);
     }
 }
