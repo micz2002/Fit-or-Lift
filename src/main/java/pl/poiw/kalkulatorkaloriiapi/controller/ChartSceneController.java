@@ -1,24 +1,22 @@
 package pl.poiw.kalkulatorkaloriiapi.controller;
 
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import pl.poiw.kalkulatorkaloriiapi.HelloApplication;
 import pl.poiw.kalkulatorkaloriiapi.model.Items;
-import pl.poiw.kalkulatorkaloriiapi.model.BreakfastModelDB;
+import pl.poiw.kalkulatorkaloriiapi.model.meal.BreakfastModelDB;
 
 import java.io.IOException;
 import java.net.URL;
@@ -47,7 +45,6 @@ public class ChartSceneController implements Initializable {
         if (BreakfastModelDB.getItemsAsStringList() != null) {
             float sumCarbohydrates = 0;
             float sumFat = 0;
-            float sumCalories = 0;
             float sumProtein = 0;
             //dodac strukture aby dodawac tylko zaznaczone produkty
             for (Items i : BreakfastModelDB.getObservableListItems()) {
@@ -55,17 +52,15 @@ public class ChartSceneController implements Initializable {
 
                 //dodawanie tylko zaznaczonych produktów
                 BreakfastModelDB.getStringBooleanPropertyMap().forEach((keyItemAsString, valueBooleanProperty) -> {
-                    if(keyItemAsString.equals(i.toString()) && valueBooleanProperty.getValue()) {
+                    if (keyItemAsString.equals(i.toString()) && valueBooleanProperty.getValue()) {
                         shouldBeCounted[0] = true;
                     }
                 });
 
-                if(shouldBeCounted[0]) {
-                    float calories = Float.parseFloat(i.getCalories());
+                if (shouldBeCounted[0]) {
                     float protein = Float.parseFloat(i.getProtein_g());
                     float fat = Float.parseFloat(i.getFat_total_g());
                     float carbohydrates = Float.parseFloat(i.getCarbohydrates_total_g());
-                    sumCalories += calories;
                     sumProtein += protein;
                     sumFat += fat;
                     sumCarbohydrates += carbohydrates;
@@ -78,22 +73,29 @@ public class ChartSceneController implements Initializable {
                             new PieChart.Data("Carbohydrates", sumCarbohydrates));
 
             pieChart.getData().addAll(pieChartData);
-            pieChart.setStartAngle(90);
 
-            valueLabel.setTextFill(Color.BLACK);
-            valueLabel.setStyle("-fx-font: 12 arial;");
 
-            for (final PieChart.Data data : pieChart.getData()) {
-                data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                    System.out.println("pie chart click");
-                    valueLabel.setTranslateX(event.getSceneX() - valueLabel.getLayoutX());
-                    valueLabel.setTranslateY(event.getSceneY() - valueLabel.getLayoutY());
-                    valueLabel.setText(String.format("%.2fg", data.getPieValue()));
-                });
-                data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-                    data.getNode().setCursor(Cursor.HAND);
-                });
-            }
+//            valueLabel.setTextFill(Color.BLACK);
+//            valueLabel.setStyle("-fx-font: 12 arial;");
+
+//            for (final PieChart.Data data : pieChart.getData()) {
+//                data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+//                    System.out.println("pie chart click");
+//                    valueLabel.setTranslateX(event.getSceneX() - valueLabel.getLayoutX());
+//                    valueLabel.setTranslateY(event.getSceneY() - valueLabel.getLayoutY());
+//                    valueLabel.setText(String.format("%.2fg", data.getPieValue()));
+//                });
+//                data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+//                    data.getNode().setCursor(Cursor.HAND);
+//                });
+//            }
+            pieChartData.forEach(data ->
+                    data.nameProperty().bind(
+                            Bindings.concat(
+                                    data.getName(), " amount: ", String.format("%.2fg", data.getPieValue())
+                            )
+                    )
+            );
         }
     }
 }

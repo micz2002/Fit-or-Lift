@@ -1,13 +1,14 @@
-package pl.poiw.kalkulatorkaloriiapi.model;
+package pl.poiw.kalkulatorkaloriiapi.model.meal;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import pl.poiw.kalkulatorkaloriiapi.model.Items;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class BreakfastModelDB {
+public class LunchModelDB {
     private static ObservableList<String> itemsAsStringList;
     private static Map<String, BooleanProperty> stringBooleanPropertyMap = new HashMap<>();
 
@@ -18,14 +19,14 @@ public class BreakfastModelDB {
     }
 
     public static void setObservableListItems(ObservableList<Items> observableListItems) {
-        BreakfastModelDB.observableListItems = observableListItems;
+        LunchModelDB.observableListItems = observableListItems;
     }
 
     public static ObservableList<String> getItemsAsStringList() {
         return itemsAsStringList;
     }
     public static void setItemsAsStringList(ObservableList<String> itemsAsStringList) {
-        BreakfastModelDB.itemsAsStringList = itemsAsStringList;
+        LunchModelDB.itemsAsStringList = itemsAsStringList;
     }
 
     public static Map<String, BooleanProperty> getStringBooleanPropertyMap() {
@@ -33,6 +34,6 @@ public class BreakfastModelDB {
     }
 
     public static void setStringBooleanPropertyMap(Map<String, BooleanProperty> stringBooleanPropertyMap) {
-        BreakfastModelDB.stringBooleanPropertyMap = stringBooleanPropertyMap;
+        LunchModelDB.stringBooleanPropertyMap = stringBooleanPropertyMap;
     }
 }

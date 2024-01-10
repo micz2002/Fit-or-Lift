@@ -1,4 +1,4 @@
-package pl.poiw.kalkulatorkaloriiapi.model;
+package pl.poiw.kalkulatorkaloriiapi.model.meal;
 
 public enum Meal {
     BREAKFAST,
