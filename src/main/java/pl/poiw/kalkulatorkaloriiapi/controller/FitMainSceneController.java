@@ -34,6 +34,16 @@ public class FitMainSceneController implements Initializable {
 
     @FXML
     private Label kcalSnackLabel;
+
+    @FXML
+    private Label summaryLabel;
+
+    private Items breakfastItem;
+    private Items brunchItem;
+    private Items lunchItem;
+    private Items snackItem;
+    private Items dinnerItem;
+
     private Parent root;
 
     @FXML
@@ -78,6 +88,12 @@ public class FitMainSceneController implements Initializable {
         switchScene(event, "fitSearchScene.fxml");
     }
 
+    @FXML
+    public void switchBreakfastToMacroScene(ActionEvent event) throws IOException {
+        switchScene(event, "macroTableScene.fxml");
+        MealDB.setMeal(Meal.BREAKFAST);
+    }
+
     private void switchScene(ActionEvent event, String sceneName) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(HelloApplication.class.getResource("fxml/" + sceneName)));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -115,8 +131,14 @@ public class FitMainSceneController implements Initializable {
                     sumCarbohydrates += carbohydrates;
                 }
             }
-            kcalBreakfastLabel.setText("Kcal: " + sumCalories + " P: " + sumProtein
-                    + " F: " + sumFat + " C: " + sumCarbohydrates);
+
+            breakfastItem = new Items();
+            breakfastItem.setCalories(String.valueOf(sumCalories));
+            breakfastItem.setProtein_g(String.valueOf(sumProtein));
+            breakfastItem.setFat_total_g(String.valueOf(sumFat));
+            breakfastItem.setCarbohydrates_total_g(String.valueOf(sumCarbohydrates));
+
+            setKcalMealLabel(sumCalories, sumProtein, sumFat, sumCarbohydrates, kcalBreakfastLabel);
         }
     }
 
@@ -149,8 +171,14 @@ public class FitMainSceneController implements Initializable {
                     sumCarbohydrates += carbohydrates;
                 }
             }
-            kcalBrunchLabel.setText("Kcal: " + sumCalories + " P: " + sumProtein
-                    + " F: " + sumFat + " C: " + sumCarbohydrates);
+
+            brunchItem = new Items();
+            brunchItem.setCalories(String.valueOf(sumCalories));
+            brunchItem.setProtein_g(String.valueOf(sumProtein));
+            brunchItem.setFat_total_g(String.valueOf(sumFat));
+            brunchItem.setCarbohydrates_total_g(String.valueOf(sumCarbohydrates));
+
+            setKcalMealLabel(sumCalories, sumProtein, sumFat, sumCarbohydrates, kcalBrunchLabel);
         }
     }
 
@@ -183,8 +211,15 @@ public class FitMainSceneController implements Initializable {
                     sumCarbohydrates += carbohydrates;
                 }
             }
-            kcalLunchLabel.setText("Kcal: " + sumCalories + " P: " + sumProtein
-                    + " F: " + sumFat + " C: " + sumCarbohydrates);
+
+            lunchItem = new Items();
+            //wrzucic do metody
+            lunchItem.setCalories(String.valueOf(sumCalories));
+            lunchItem.setProtein_g(String.valueOf(sumProtein));
+            lunchItem.setFat_total_g(String.valueOf(sumFat));
+            lunchItem.setCarbohydrates_total_g(String.valueOf(sumCarbohydrates));
+
+            setKcalMealLabel(sumCalories, sumProtein, sumFat, sumCarbohydrates, kcalLunchLabel);
         }
     }
 
@@ -217,8 +252,14 @@ public class FitMainSceneController implements Initializable {
                     sumCarbohydrates += carbohydrates;
                 }
             }
-            kcalSnackLabel.setText("Kcal: " + sumCalories + " P: " + sumProtein
-                    + " F: " + sumFat + " C: " + sumCarbohydrates);
+
+            snackItem = new Items();
+            snackItem.setCalories(String.valueOf(sumCalories));
+            snackItem.setProtein_g(String.valueOf(sumProtein));
+            snackItem.setFat_total_g(String.valueOf(sumFat));
+            snackItem.setCarbohydrates_total_g(String.valueOf(sumCarbohydrates));
+
+            setKcalMealLabel(sumCalories, sumProtein, sumFat, sumCarbohydrates, kcalSnackLabel);
         }
     }
 
@@ -251,9 +292,26 @@ public class FitMainSceneController implements Initializable {
                     sumCarbohydrates += carbohydrates;
                 }
             }
-            kcalDinnerLabel.setText("Kcal: " + sumCalories + " P: " + sumProtein
-                    + " F: " + sumFat + " C: " + sumCarbohydrates);
+
+            dinnerItem = new Items();
+            dinnerItem.setCalories(String.valueOf(sumCalories));
+            dinnerItem.setProtein_g(String.valueOf(sumProtein));
+            dinnerItem.setFat_total_g(String.valueOf(sumFat));
+            dinnerItem.setCarbohydrates_total_g(String.valueOf(sumCarbohydrates));
+//            Items summaryItem = new Items();
+//            summaryItem.setCalories(String.valueOf(String.format("%.1f", sumCalories)));
+//            summaryItem.setProtein_g(String.valueOf(String.format("%.1f", sumProtein)));
+//            summaryItem.setFat_total_g(String.valueOf(String.format("%.1f", sumFat)));
+//            summaryItem.setCarbohydrates_total_g(String.valueOf(String.format("%.1f", sumCarbohydrates)));
+//            SummaryDB.setSummaryItem(summaryItem);
+
+            setKcalMealLabel(sumCalories, sumProtein, sumFat, sumCarbohydrates, kcalDinnerLabel);
         }
+    }
+
+    private void setKcalMealLabel(float sumCalories, float sumProtein, float sumFat, float sumCarbohydrates, Label kcalMealLabel) {
+        kcalMealLabel.setText("Kcal: " + String.format("%.0fg", sumCalories) + " P: " + String.format("%.0fg", sumProtein)
+                + " F: " + String.format("%.0fg", sumFat) + " C: " + String.format("%.0fg", sumCarbohydrates));
     }
 
     @Override
@@ -263,5 +321,75 @@ public class FitMainSceneController implements Initializable {
         lunchCountingProductsMacro();
         snackCountingProductsMacro();
         dinnerCountingProductsMacro();
+
+        float breakfastCalories = 0.0f, breakfastProtein = 0.0f, breakfastFat = 0.0f, breakfastCarbohydrates = 0.0f,
+                brunchCalories = 0.0f, brunchProtein = 0.0f, brunchFat = 0.0f, brunchCarbohydrates = 0.0f,
+                lunchCalories = 0.0f, lunchProtein = 0.0f, lunchFat = 0.0f, lunchCarbohydrates = 0.0f,
+                snackCalories = 0.0f, snackProtein = 0.0f, snackFat = 0.0f, snackCarbohydrates = 0.0f,
+                dinnerCalories = 0.0f, dinnerProtein = 0.0f, dinnerFat = 0.0f, dinnerCarbohydrates = 0.0f;
+
+        //zsumowanie makro z posilkow do calosciowej dziennej ilosci
+        if (breakfastItem != null) {
+            breakfastCalories = Float.parseFloat(breakfastItem.getCalories());
+            breakfastProtein = Float.parseFloat(breakfastItem.getProtein_g());
+            breakfastFat = Float.parseFloat(breakfastItem.getFat_total_g());
+            breakfastCarbohydrates = Float.parseFloat(breakfastItem.getCarbohydrates_total_g());
+        }
+
+        if (brunchItem != null) {
+            brunchCalories = Float.parseFloat(brunchItem.getCalories());
+            brunchProtein = Float.parseFloat(brunchItem.getProtein_g());
+            brunchFat = Float.parseFloat(brunchItem.getFat_total_g());
+            brunchCarbohydrates = Float.parseFloat(brunchItem.getCarbohydrates_total_g());
+        }
+
+        if (lunchItem != null) {
+            lunchCalories = Float.parseFloat(lunchItem.getCalories());
+            lunchProtein = Float.parseFloat(lunchItem.getProtein_g());
+            lunchFat = Float.parseFloat(lunchItem.getFat_total_g());
+            lunchCarbohydrates = Float.parseFloat(lunchItem.getCarbohydrates_total_g());
+        }
+
+        if (snackItem != null) {
+            snackCalories = Float.parseFloat(snackItem.getCalories());
+            snackProtein = Float.parseFloat(snackItem.getProtein_g());
+            snackFat = Float.parseFloat(snackItem.getFat_total_g());
+            snackCarbohydrates = Float.parseFloat(snackItem.getCarbohydrates_total_g());
+        }
+
+        if (dinnerItem != null) {
+            dinnerCalories = Float.parseFloat(dinnerItem.getCalories());
+            dinnerProtein = Float.parseFloat(dinnerItem.getProtein_g());
+            dinnerFat = Float.parseFloat(dinnerItem.getFat_total_g());
+            dinnerCarbohydrates = Float.parseFloat(dinnerItem.getCarbohydrates_total_g());
+        }
+
+        float summarizedCalories = breakfastCalories + brunchCalories + lunchCalories
+                + snackCalories + dinnerCalories;
+        SummaryDB.getSummaryItem().setCalories(String.valueOf(String.format("%.1f", summarizedCalories)));
+
+        float summarizedProtein = breakfastProtein + brunchProtein + lunchProtein
+                + snackProtein + dinnerProtein;
+        SummaryDB.getSummaryItem().setProtein_g(String.valueOf(String.format("%.1f", summarizedProtein)));
+
+        float summarizedFat = breakfastFat + brunchFat + lunchFat
+                + snackFat + dinnerFat;
+        SummaryDB.getSummaryItem().setFat_total_g(String.valueOf(String.format("%.1f", summarizedFat)));
+
+        float summarizedCarbohydrates = breakfastCarbohydrates + brunchCarbohydrates
+                + lunchCarbohydrates + snackCarbohydrates + dinnerCarbohydrates;
+        SummaryDB.getSummaryItem().setCarbohydrates_total_g(String.valueOf(String.format("%.1f", summarizedCarbohydrates)));
+
+
+        String caloriesTotal = SummaryDB.getSummaryItem().getCalories();
+        String proteinTotal = SummaryDB.getSummaryItem().getProtein_g();
+        String fatTotal = SummaryDB.getSummaryItem().getFat_total_g();
+        String carbohydratesTotal = SummaryDB.getSummaryItem().getCarbohydrates_total_g();
+        summaryLabel.setText("Kcal: " + caloriesTotal + " P: " + proteinTotal
+                + " F: " + fatTotal + " C: " + carbohydratesTotal);
+
+        summaryLabel.setStyle("-fx-font-weight: 600;");
+
+
     }
 }
