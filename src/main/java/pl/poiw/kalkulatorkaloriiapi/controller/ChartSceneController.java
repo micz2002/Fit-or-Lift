@@ -15,8 +15,9 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.poiw.kalkulatorkaloriiapi.HelloApplication;
-import pl.poiw.kalkulatorkaloriiapi.model.Items;
+import pl.poiw.kalkulatorkaloriiapi.model.apiproduct.Items;
 import pl.poiw.kalkulatorkaloriiapi.model.meal.BreakfastModelDB;
+import pl.poiw.kalkulatorkaloriiapi.model.meal.SummaryDB;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,35 +43,11 @@ public class ChartSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        if (BreakfastModelDB.getItemsAsStringList() != null) {
-            float sumCarbohydrates = 0;
-            float sumFat = 0;
-            float sumProtein = 0;
-            //dodac strukture aby dodawac tylko zaznaczone produkty
-            for (Items i : BreakfastModelDB.getObservableListItems()) {
-                final boolean[] shouldBeCounted = new boolean[1];
-
-                //dodawanie tylko zaznaczonych produktów
-                BreakfastModelDB.getStringBooleanPropertyMap().forEach((keyItemAsString, valueBooleanProperty) -> {
-                    if (keyItemAsString.equals(i.toString()) && valueBooleanProperty.getValue()) {
-                        shouldBeCounted[0] = true;
-                    }
-                });
-
-                if (shouldBeCounted[0]) {
-                    float protein = Float.parseFloat(i.getProtein_g());
-                    float fat = Float.parseFloat(i.getFat_total_g());
-                    float carbohydrates = Float.parseFloat(i.getCarbohydrates_total_g());
-                    sumProtein += protein;
-                    sumFat += fat;
-                    sumCarbohydrates += carbohydrates;
-                }
-            }
             ObservableList<PieChart.Data> pieChartData =
                     FXCollections.observableArrayList(
-                            new PieChart.Data("Fat", sumFat),
-                            new PieChart.Data("Protein", sumProtein),
-                            new PieChart.Data("Carbohydrates", sumCarbohydrates));
+                            new PieChart.Data("Protein", Double.parseDouble(SummaryDB.getSummaryItem().getProtein_g().replace("," , "."))),
+                            new PieChart.Data("Fat", Double.parseDouble(SummaryDB.getSummaryItem().getFat_total_g().replace("," , "."))),
+                            new PieChart.Data("Carbohydrates", Double.parseDouble(SummaryDB.getSummaryItem().getCarbohydrates_total_g().replace("," , "."))));
 
             pieChart.getData().addAll(pieChartData);
 
@@ -90,13 +67,12 @@ public class ChartSceneController implements Initializable {
 //                });
 //            }
             pieChartData.forEach(data ->
-                    data.nameProperty().bind(
-                            Bindings.concat(
-                                    data.getName(), " amount: ", String.format("%.2fg", data.getPieValue())
-                            )
-                    )
+                        data.nameProperty().bind(
+                                Bindings.concat(
+                                        data.getName(), " amount: ", String.format("%.1fg", data.getPieValue())
+                                )
+                        )
             );
-        }
     }
 }
 

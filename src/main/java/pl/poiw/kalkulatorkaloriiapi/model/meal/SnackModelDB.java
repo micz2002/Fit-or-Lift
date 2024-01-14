@@ -3,7 +3,7 @@ package pl.poiw.kalkulatorkaloriiapi.model.meal;
 import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import pl.poiw.kalkulatorkaloriiapi.model.Items;
+import pl.poiw.kalkulatorkaloriiapi.model.apiproduct.Items;
 
 import java.util.HashMap;
 import java.util.Map;

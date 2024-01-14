@@ -1,6 +1,6 @@
 package pl.poiw.kalkulatorkaloriiapi.model.meal;
 
-import pl.poiw.kalkulatorkaloriiapi.model.Items;
+import pl.poiw.kalkulatorkaloriiapi.model.apiproduct.Items;
 
 public class SummaryDB {
     private static Items summaryItem = new Items();

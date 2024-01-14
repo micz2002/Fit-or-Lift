@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
 
 public class Macro {
     StringProperty name;
+
     FloatProperty amount;
 
     public Macro(String nazwa, Float ilosc) {

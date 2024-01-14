@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.poiw.kalkulatorkaloriiapi.HelloApplication;
-import pl.poiw.kalkulatorkaloriiapi.model.Items;
+import pl.poiw.kalkulatorkaloriiapi.model.apiproduct.Items;
 import pl.poiw.kalkulatorkaloriiapi.model.meal.*;
 
 import java.io.IOException;
@@ -379,7 +379,6 @@ public class FitMainSceneController implements Initializable {
         float summarizedCarbohydrates = breakfastCarbohydrates + brunchCarbohydrates
                 + lunchCarbohydrates + snackCarbohydrates + dinnerCarbohydrates;
         SummaryDB.getSummaryItem().setCarbohydrates_total_g(String.valueOf(String.format("%.1f", summarizedCarbohydrates)));
-
 
         String caloriesTotal = SummaryDB.getSummaryItem().getCalories();
         String proteinTotal = SummaryDB.getSummaryItem().getProtein_g();

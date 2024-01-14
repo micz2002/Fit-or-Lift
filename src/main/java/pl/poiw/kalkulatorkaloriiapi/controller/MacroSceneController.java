@@ -13,11 +13,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.converter.FloatStringConverter;
 import pl.poiw.kalkulatorkaloriiapi.HelloApplication;
-import pl.poiw.kalkulatorkaloriiapi.model.Items;
+import pl.poiw.kalkulatorkaloriiapi.model.apiproduct.Items;
 import pl.poiw.kalkulatorkaloriiapi.model.Macro;
 import pl.poiw.kalkulatorkaloriiapi.model.meal.BreakfastModelDB;
 
