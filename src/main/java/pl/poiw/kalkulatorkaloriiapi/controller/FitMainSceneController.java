@@ -109,6 +109,14 @@ public class FitMainSceneController implements Initializable {
             float sumFat = 0;
             float sumCarbohydrates = 0;
 
+            //mikroelementy i inne
+            float sumSodium = 0; //mg
+            float sumSugar = 0;
+            float sumCholesterol = 0;   //mg
+            float sumFiber = 0;
+            float sumFat_saturated = 0;
+            float sumPotassium = 0;  //mg
+
             for (Items i : BreakfastModelDB.getObservableListItems()) {
 
                 final boolean[] shouldBeCounted = new boolean[1];
@@ -121,22 +129,23 @@ public class FitMainSceneController implements Initializable {
                 });
 
                 if (shouldBeCounted[0]) {
-                    float calories = Float.parseFloat(i.getCalories());
-                    float protein = Float.parseFloat(i.getProtein_g());
-                    float fat = Float.parseFloat(i.getFat_total_g());
-                    float carbohydrates = Float.parseFloat(i.getCarbohydrates_total_g());
-                    sumCalories += calories;
-                    sumProtein += protein;
-                    sumFat += fat;
-                    sumCarbohydrates += carbohydrates;
+                    sumCalories += Float.parseFloat(i.getCalories());
+                    sumProtein += Float.parseFloat(i.getProtein_g());
+                    sumFat += Float.parseFloat(i.getFat_total_g());
+                    sumCarbohydrates += Float.parseFloat(i.getCarbohydrates_total_g());
+                    //pozostale mikro i inne
+                    sumSodium += Float.parseFloat(i.getSodium_mg()); //mg
+                    sumSugar += Float.parseFloat(i.getSugar_g());
+                    sumCholesterol += Float.parseFloat(i.getCholesterol_mg());   //mg
+                    sumFiber += Float.parseFloat(i.getFiber_g());
+                    sumFat_saturated += Float.parseFloat(i.getFat_saturated_g());
+                    sumPotassium += Float.parseFloat(i.getPotassium_mg());  //mg
                 }
             }
 
             breakfastItem = new Items();
-            breakfastItem.setCalories(String.valueOf(sumCalories));
-            breakfastItem.setProtein_g(String.valueOf(sumProtein));
-            breakfastItem.setFat_total_g(String.valueOf(sumFat));
-            breakfastItem.setCarbohydrates_total_g(String.valueOf(sumCarbohydrates));
+            setSummarizedMealNutrients(breakfastItem, sumCalories, sumProtein, sumFat, sumCarbohydrates, sumSodium, sumSugar, sumCholesterol,
+                    sumFiber, sumFat_saturated, sumPotassium);
 
             setKcalMealLabel(sumCalories, sumProtein, sumFat, sumCarbohydrates, kcalBreakfastLabel);
         }
@@ -148,6 +157,15 @@ public class FitMainSceneController implements Initializable {
             float sumProtein = 0;
             float sumFat = 0;
             float sumCarbohydrates = 0;
+
+            //mikroelementy i inne
+            float sumSodium = 0; //mg
+            float sumSugar = 0;
+            float sumCholesterol = 0;   //mg
+            float sumFiber = 0;
+            float sumFat_saturated = 0;
+            float sumPotassium = 0;  //mg
+
 
             for (Items i : BrunchModelDB.getObservableListItems()) {
 
@@ -161,22 +179,23 @@ public class FitMainSceneController implements Initializable {
                 });
 
                 if (shouldBeCounted[0]) {
-                    float calories = Float.parseFloat(i.getCalories());
-                    float protein = Float.parseFloat(i.getProtein_g());
-                    float fat = Float.parseFloat(i.getFat_total_g());
-                    float carbohydrates = Float.parseFloat(i.getCarbohydrates_total_g());
-                    sumCalories += calories;
-                    sumProtein += protein;
-                    sumFat += fat;
-                    sumCarbohydrates += carbohydrates;
+                    sumCalories += Float.parseFloat(i.getCalories());
+                    sumProtein += Float.parseFloat(i.getProtein_g());
+                    sumFat += Float.parseFloat(i.getFat_total_g());
+                    sumCarbohydrates += Float.parseFloat(i.getCarbohydrates_total_g());
+                    //pozostale mikro i inne
+                    sumSodium += Float.parseFloat(i.getSodium_mg()); //mg
+                    sumSugar += Float.parseFloat(i.getSugar_g());
+                    sumCholesterol += Float.parseFloat(i.getCholesterol_mg());   //mg
+                    sumFiber += Float.parseFloat(i.getFiber_g());
+                    sumFat_saturated += Float.parseFloat(i.getFat_saturated_g());
+                    sumPotassium += Float.parseFloat(i.getPotassium_mg());  //mg
                 }
             }
 
             brunchItem = new Items();
-            brunchItem.setCalories(String.valueOf(sumCalories));
-            brunchItem.setProtein_g(String.valueOf(sumProtein));
-            brunchItem.setFat_total_g(String.valueOf(sumFat));
-            brunchItem.setCarbohydrates_total_g(String.valueOf(sumCarbohydrates));
+            setSummarizedMealNutrients(brunchItem, sumCalories, sumProtein, sumFat, sumCarbohydrates, sumSodium, sumSugar, sumCholesterol,
+                    sumFiber, sumFat_saturated, sumPotassium);
 
             setKcalMealLabel(sumCalories, sumProtein, sumFat, sumCarbohydrates, kcalBrunchLabel);
         }
@@ -188,6 +207,14 @@ public class FitMainSceneController implements Initializable {
             float sumProtein = 0;
             float sumFat = 0;
             float sumCarbohydrates = 0;
+
+            //mikroelementy i inne
+            float sumSodium = 0; //mg
+            float sumSugar = 0;
+            float sumCholesterol = 0;   //mg
+            float sumFiber = 0;
+            float sumFat_saturated = 0;
+            float sumPotassium = 0;  //mg
 
             for (Items i : LunchModelDB.getObservableListItems()) {
 
@@ -201,23 +228,23 @@ public class FitMainSceneController implements Initializable {
                 });
 
                 if (shouldBeCounted[0]) {
-                    float calories = Float.parseFloat(i.getCalories());
-                    float protein = Float.parseFloat(i.getProtein_g());
-                    float fat = Float.parseFloat(i.getFat_total_g());
-                    float carbohydrates = Float.parseFloat(i.getCarbohydrates_total_g());
-                    sumCalories += calories;
-                    sumProtein += protein;
-                    sumFat += fat;
-                    sumCarbohydrates += carbohydrates;
+                    sumCalories += Float.parseFloat(i.getCalories());
+                    sumProtein += Float.parseFloat(i.getProtein_g());
+                    sumFat += Float.parseFloat(i.getFat_total_g());
+                    sumCarbohydrates += Float.parseFloat(i.getCarbohydrates_total_g());
+                    //pozostale mikro i inne
+                    sumSodium += Float.parseFloat(i.getSodium_mg()); //mg
+                    sumSugar += Float.parseFloat(i.getSugar_g());
+                    sumCholesterol += Float.parseFloat(i.getCholesterol_mg());   //mg
+                    sumFiber += Float.parseFloat(i.getFiber_g());
+                    sumFat_saturated += Float.parseFloat(i.getFat_saturated_g());
+                    sumPotassium += Float.parseFloat(i.getPotassium_mg());  //mg
                 }
             }
 
             lunchItem = new Items();
-            //wrzucic do metody
-            lunchItem.setCalories(String.valueOf(sumCalories));
-            lunchItem.setProtein_g(String.valueOf(sumProtein));
-            lunchItem.setFat_total_g(String.valueOf(sumFat));
-            lunchItem.setCarbohydrates_total_g(String.valueOf(sumCarbohydrates));
+            setSummarizedMealNutrients(lunchItem, sumCalories, sumProtein, sumFat, sumCarbohydrates, sumSodium, sumSugar, sumCholesterol,
+                    sumFiber, sumFat_saturated, sumPotassium);
 
             setKcalMealLabel(sumCalories, sumProtein, sumFat, sumCarbohydrates, kcalLunchLabel);
         }
@@ -229,6 +256,14 @@ public class FitMainSceneController implements Initializable {
             float sumProtein = 0;
             float sumFat = 0;
             float sumCarbohydrates = 0;
+
+            //mikroelementy i inne
+            float sumSodium = 0; //mg
+            float sumSugar = 0;
+            float sumCholesterol = 0;   //mg
+            float sumFiber = 0;
+            float sumFat_saturated = 0;
+            float sumPotassium = 0;  //mg
 
             for (Items i : SnackModelDB.getObservableListItems()) {
 
@@ -242,22 +277,23 @@ public class FitMainSceneController implements Initializable {
                 });
 
                 if (shouldBeCounted[0]) {
-                    float calories = Float.parseFloat(i.getCalories());
-                    float protein = Float.parseFloat(i.getProtein_g());
-                    float fat = Float.parseFloat(i.getFat_total_g());
-                    float carbohydrates = Float.parseFloat(i.getCarbohydrates_total_g());
-                    sumCalories += calories;
-                    sumProtein += protein;
-                    sumFat += fat;
-                    sumCarbohydrates += carbohydrates;
+                    sumCalories += Float.parseFloat(i.getCalories());
+                    sumProtein += Float.parseFloat(i.getProtein_g());
+                    sumFat += Float.parseFloat(i.getFat_total_g());
+                    sumCarbohydrates += Float.parseFloat(i.getCarbohydrates_total_g());
+                    //pozostale mikro i inne
+                    sumSodium += Float.parseFloat(i.getSodium_mg()); //mg
+                    sumSugar += Float.parseFloat(i.getSugar_g());
+                    sumCholesterol += Float.parseFloat(i.getCholesterol_mg());   //mg
+                    sumFiber += Float.parseFloat(i.getFiber_g());
+                    sumFat_saturated += Float.parseFloat(i.getFat_saturated_g());
+                    sumPotassium += Float.parseFloat(i.getPotassium_mg());  //mg
                 }
             }
 
             snackItem = new Items();
-            snackItem.setCalories(String.valueOf(sumCalories));
-            snackItem.setProtein_g(String.valueOf(sumProtein));
-            snackItem.setFat_total_g(String.valueOf(sumFat));
-            snackItem.setCarbohydrates_total_g(String.valueOf(sumCarbohydrates));
+            setSummarizedMealNutrients(snackItem, sumCalories, sumProtein, sumFat, sumCarbohydrates, sumSodium, sumSugar, sumCholesterol,
+                    sumFiber, sumFat_saturated, sumPotassium);
 
             setKcalMealLabel(sumCalories, sumProtein, sumFat, sumCarbohydrates, kcalSnackLabel);
         }
@@ -269,6 +305,14 @@ public class FitMainSceneController implements Initializable {
             float sumProtein = 0;
             float sumFat = 0;
             float sumCarbohydrates = 0;
+
+            //mikroelementy i inne
+            float sumSodium = 0; //mg
+            float sumSugar = 0;
+            float sumCholesterol = 0;   //mg
+            float sumFiber = 0;
+            float sumFat_saturated = 0;
+            float sumPotassium = 0;  //mg
 
             for (Items i : DinnerModelDB.getObservableListItems()) {
 
@@ -282,33 +326,43 @@ public class FitMainSceneController implements Initializable {
                 });
 
                 if (shouldBeCounted[0]) {
-                    float calories = Float.parseFloat(i.getCalories());
-                    float protein = Float.parseFloat(i.getProtein_g());
-                    float fat = Float.parseFloat(i.getFat_total_g());
-                    float carbohydrates = Float.parseFloat(i.getCarbohydrates_total_g());
-                    sumCalories += calories;
-                    sumProtein += protein;
-                    sumFat += fat;
-                    sumCarbohydrates += carbohydrates;
+                    sumCalories += Float.parseFloat(i.getCalories());
+                    sumProtein += Float.parseFloat(i.getProtein_g());
+                    sumFat += Float.parseFloat(i.getFat_total_g());
+                    sumCarbohydrates += Float.parseFloat(i.getCarbohydrates_total_g());
+                    //pozostale mikro i inne
+                    sumSodium += Float.parseFloat(i.getSodium_mg()); //mg
+                    sumSugar += Float.parseFloat(i.getSugar_g());
+                    sumCholesterol += Float.parseFloat(i.getCholesterol_mg());   //mg
+                    sumFiber += Float.parseFloat(i.getFiber_g());
+                    sumFat_saturated += Float.parseFloat(i.getFat_saturated_g());
+                    sumPotassium += Float.parseFloat(i.getPotassium_mg());  //mg
                 }
             }
 
             dinnerItem = new Items();
-            dinnerItem.setCalories(String.valueOf(sumCalories));
-            dinnerItem.setProtein_g(String.valueOf(sumProtein));
-            dinnerItem.setFat_total_g(String.valueOf(sumFat));
-            dinnerItem.setCarbohydrates_total_g(String.valueOf(sumCarbohydrates));
-//            Items summaryItem = new Items();
-//            summaryItem.setCalories(String.valueOf(String.format("%.1f", sumCalories)));
-//            summaryItem.setProtein_g(String.valueOf(String.format("%.1f", sumProtein)));
-//            summaryItem.setFat_total_g(String.valueOf(String.format("%.1f", sumFat)));
-//            summaryItem.setCarbohydrates_total_g(String.valueOf(String.format("%.1f", sumCarbohydrates)));
-//            SummaryDB.setSummaryItem(summaryItem);
+            setSummarizedMealNutrients(dinnerItem, sumCalories, sumProtein, sumFat, sumCarbohydrates, sumSodium, sumSugar, sumCholesterol,
+                    sumFiber, sumFat_saturated, sumPotassium);
 
             setKcalMealLabel(sumCalories, sumProtein, sumFat, sumCarbohydrates, kcalDinnerLabel);
         }
     }
 
+    private void setSummarizedMealNutrients(Items item, float sumCalories, float sumProtein, float sumFat, float sumCarbohydrates,
+                                            float sumSodium, float sumSugar, float sumCholesterol, float sumFiber, float sumFat_saturated,
+                                            float sumPotassium) {
+        item.setCalories(String.valueOf(sumCalories));
+        item.setProtein_g(String.valueOf(sumProtein));
+        item.setFat_total_g(String.valueOf(sumFat));
+        item.setCarbohydrates_total_g(String.valueOf(sumCarbohydrates));
+        //pozostale mikro i inne
+        item.setSodium_mg(String.valueOf(sumSodium));
+        item.setSugar_g(String.valueOf(sumSugar));
+        item.setCholesterol_mg(String.valueOf(sumCholesterol));
+        item.setFiber_g(String.valueOf(sumFiber));
+        item.setFat_saturated_g(String.valueOf(sumFat_saturated));
+        item.setPotassium_mg(String.valueOf(sumPotassium));
+    }
     private void setKcalMealLabel(float sumCalories, float sumProtein, float sumFat, float sumCarbohydrates, Label kcalMealLabel) {
         kcalMealLabel.setText("Kcal: " + String.format("%.0fg", sumCalories) + " P: " + String.format("%.0fg", sumProtein)
                 + " F: " + String.format("%.0fg", sumFat) + " C: " + String.format("%.0fg", sumCarbohydrates));
@@ -322,18 +376,33 @@ public class FitMainSceneController implements Initializable {
         snackCountingProductsMacro();
         dinnerCountingProductsMacro();
 
-        float breakfastCalories = 0.0f, breakfastProtein = 0.0f, breakfastFat = 0.0f, breakfastCarbohydrates = 0.0f,
-                brunchCalories = 0.0f, brunchProtein = 0.0f, brunchFat = 0.0f, brunchCarbohydrates = 0.0f,
-                lunchCalories = 0.0f, lunchProtein = 0.0f, lunchFat = 0.0f, lunchCarbohydrates = 0.0f,
-                snackCalories = 0.0f, snackProtein = 0.0f, snackFat = 0.0f, snackCarbohydrates = 0.0f,
-                dinnerCalories = 0.0f, dinnerProtein = 0.0f, dinnerFat = 0.0f, dinnerCarbohydrates = 0.0f;
+        float breakfastCalories = 0, breakfastProtein = 0, breakfastFat = 0, breakfastCarbohydrates = 0,
+                brunchCalories = 0, brunchProtein = 0, brunchFat = 0, brunchCarbohydrates = 0,
+                lunchCalories = 0, lunchProtein = 0, lunchFat = 0, lunchCarbohydrates = 0,
+                snackCalories = 0, snackProtein = 0, snackFat = 0, snackCarbohydrates = 0,
+                dinnerCalories = 0, dinnerProtein = 0, dinnerFat = 0, dinnerCarbohydrates = 0;
+        //mikroskladniki i inne
+        float breakfastSodium = 0 /*mg*/, breakfastSugar = 0, breakfastCholesterol = 0 /*mg*/, breakfastFiber = 0, breakfastFat_saturated = 0, breakfastPotasium = 0 /*mg*/,
+                brunchSodium = 0 /*mg*/, brunchSugar = 0, brunchCholesterol = 0 /*mg*/, brunchFiber = 0, brunchFat_saturated = 0, brunchPotasium = 0 /*mg*/,
+                lunchSodium = 0 /*mg*/, lunchSugar = 0, lunchCholesterol = 0 /*mg*/, lunchFiber = 0, lunchFat_saturated = 0, lunchPotasium = 0 /*mg*/,
+                snackSodium = 0 /*mg*/, snackSugar = 0, snackCholesterol = 0 /*mg*/, snackFiber = 0, snackFat_saturated = 0, snackPotasium = 0 /*mg*/,
+                dinnerSodium = 0 /*mg*/, dinnerSugar = 0, dinnerCholesterol = 0 /*mg*/, dinnerFiber = 0, dinnerFat_saturated = 0, dinnerPotasium = 0 /*mg*/;
 
-        //zsumowanie makro z posilkow do calosciowej dziennej ilosci
+        //zsumowanie makro i mikro z posilkow do calosciowej dziennej ilosci
         if (breakfastItem != null) {
             breakfastCalories = Float.parseFloat(breakfastItem.getCalories());
             breakfastProtein = Float.parseFloat(breakfastItem.getProtein_g());
             breakfastFat = Float.parseFloat(breakfastItem.getFat_total_g());
             breakfastCarbohydrates = Float.parseFloat(breakfastItem.getCarbohydrates_total_g());
+
+            //pozostale mikro i inne
+            breakfastSodium = Float.parseFloat(breakfastItem.getSodium_mg());
+            breakfastSugar = Float.parseFloat(breakfastItem.getSugar_g());
+            breakfastCholesterol = Float.parseFloat(breakfastItem.getCholesterol_mg());
+            breakfastFiber = Float.parseFloat(breakfastItem.getFiber_g());
+            breakfastFat_saturated = Float.parseFloat(breakfastItem.getFat_saturated_g());
+            breakfastPotasium = Float.parseFloat(breakfastItem.getPotassium_mg());
+
         }
 
         if (brunchItem != null) {
@@ -341,6 +410,14 @@ public class FitMainSceneController implements Initializable {
             brunchProtein = Float.parseFloat(brunchItem.getProtein_g());
             brunchFat = Float.parseFloat(brunchItem.getFat_total_g());
             brunchCarbohydrates = Float.parseFloat(brunchItem.getCarbohydrates_total_g());
+
+            //pozostale mikro i inne
+            brunchSodium = Float.parseFloat(brunchItem.getSodium_mg());
+            brunchSugar = Float.parseFloat(brunchItem.getSugar_g());
+            brunchCholesterol = Float.parseFloat(brunchItem.getCholesterol_mg());
+            brunchFiber = Float.parseFloat(brunchItem.getFiber_g());
+            brunchFat_saturated = Float.parseFloat(brunchItem.getFat_saturated_g());
+            brunchPotasium = Float.parseFloat(brunchItem.getPotassium_mg());
         }
 
         if (lunchItem != null) {
@@ -348,6 +425,14 @@ public class FitMainSceneController implements Initializable {
             lunchProtein = Float.parseFloat(lunchItem.getProtein_g());
             lunchFat = Float.parseFloat(lunchItem.getFat_total_g());
             lunchCarbohydrates = Float.parseFloat(lunchItem.getCarbohydrates_total_g());
+
+            //pozostale mikro i inne
+            lunchSodium = Float.parseFloat(lunchItem.getSodium_mg());
+            lunchSugar = Float.parseFloat(lunchItem.getSugar_g());
+            lunchCholesterol = Float.parseFloat(lunchItem.getCholesterol_mg());
+            lunchFiber = Float.parseFloat(lunchItem.getFiber_g());
+            lunchFat_saturated = Float.parseFloat(lunchItem.getFat_saturated_g());
+            lunchPotasium = Float.parseFloat(lunchItem.getPotassium_mg());
         }
 
         if (snackItem != null) {
@@ -355,6 +440,14 @@ public class FitMainSceneController implements Initializable {
             snackProtein = Float.parseFloat(snackItem.getProtein_g());
             snackFat = Float.parseFloat(snackItem.getFat_total_g());
             snackCarbohydrates = Float.parseFloat(snackItem.getCarbohydrates_total_g());
+
+            //pozostale mikro i inne
+            snackSodium = Float.parseFloat(snackItem.getSodium_mg());
+            snackSugar = Float.parseFloat(snackItem.getSugar_g());
+            snackCholesterol = Float.parseFloat(snackItem.getCholesterol_mg());
+            snackFiber = Float.parseFloat(snackItem.getFiber_g());
+            snackFat_saturated = Float.parseFloat(snackItem.getFat_saturated_g());
+            snackPotasium = Float.parseFloat(snackItem.getPotassium_mg());
         }
 
         if (dinnerItem != null) {
@@ -362,7 +455,36 @@ public class FitMainSceneController implements Initializable {
             dinnerProtein = Float.parseFloat(dinnerItem.getProtein_g());
             dinnerFat = Float.parseFloat(dinnerItem.getFat_total_g());
             dinnerCarbohydrates = Float.parseFloat(dinnerItem.getCarbohydrates_total_g());
+
+            //pozostale mikro i inne
+            dinnerSodium = Float.parseFloat(dinnerItem.getSodium_mg());
+            dinnerSugar = Float.parseFloat(dinnerItem.getSugar_g());
+            dinnerCholesterol = Float.parseFloat(dinnerItem.getCholesterol_mg());
+            dinnerFiber = Float.parseFloat(dinnerItem.getFiber_g());
+            dinnerFat_saturated = Float.parseFloat(dinnerItem.getFat_saturated_g());
+            dinnerPotasium = Float.parseFloat(dinnerItem.getPotassium_mg());
         }
+
+        //zsumowanie mikro i innych
+        float summarizedSodium = breakfastSodium + brunchSodium + lunchSodium
+                + snackSodium + dinnerSodium;
+        SummaryDB.getSummaryItem().setSodium_mg(String.valueOf(String.format("%.2f", summarizedSodium/1000)));
+        float summarizedSugar = breakfastSugar + brunchSugar + lunchSugar
+                + snackSugar + dinnerSugar;
+        SummaryDB.getSummaryItem().setSugar_g(String.valueOf(String.format("%.2f", summarizedSugar)));
+        float summarizedCholesterol = breakfastCholesterol + brunchCholesterol + lunchCholesterol
+                + snackCholesterol + dinnerCholesterol;
+        SummaryDB.getSummaryItem().setCholesterol_mg(String.valueOf(String.format("%.2f", summarizedCholesterol/1000)));
+        float summarizedFiber = breakfastFiber + brunchFiber + lunchFiber
+                + snackFiber + dinnerFiber;
+        SummaryDB.getSummaryItem().setFiber_g(String.valueOf(String.format("%.2f", summarizedFiber)));
+        float summarizedFat_saturated = breakfastFat_saturated + brunchFat_saturated + lunchFat_saturated
+                + snackFat_saturated + dinnerFat_saturated;
+        SummaryDB.getSummaryItem().setFat_saturated_g(String.valueOf(String.format("%.2f", summarizedFat_saturated)));
+        float summarizedPotasium = breakfastPotasium + brunchPotasium + lunchPotasium
+                + snackPotasium + dinnerPotasium;
+        SummaryDB.getSummaryItem().setPotassium_mg(String.valueOf(String.format("%.2f", summarizedPotasium/1000)));
+        //
 
         float summarizedCalories = breakfastCalories + brunchCalories + lunchCalories
                 + snackCalories + dinnerCalories;

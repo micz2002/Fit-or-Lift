@@ -257,14 +257,8 @@ public class FitSearchController implements Initializable {
                                     if(matchedItemFound.isPresent()) {
 
                                         label.textProperty().bind(Bindings.when(observable)
-                                                .then(matchedItemFound.get().getName() + " " + matchedItemFound.get().getServing_size_g()
-                                                        + "g" + " kcal: " + matchedItemFound.get().getCalories()
-                                                        + " protein: " + matchedItemFound.get().getProtein_g() + " fat: " + matchedItemFound.get().getFat_total_g()
-                                                        + " carbs: " + matchedItemFound.get().getCarbohydrates_total_g())
-                                                .otherwise(matchedItemFound.get().getName() + " " + matchedItemFound.get().getServing_size_g()
-                                                        + "g" + " kcal: " + matchedItemFound.get().getCalories()
-                                                        + " protein: " + matchedItemFound.get().getProtein_g() + " fat: " + matchedItemFound.get().getFat_total_g()
-                                                        + " carbs: " + matchedItemFound.get().getCarbohydrates_total_g()));
+                                                .then(setProductLabelInListView(matchedItemFound))
+                                                .otherwise(setProductLabelInListView(matchedItemFound)));
                                     }
                             }
                             case BRUNCH -> {
@@ -274,14 +268,8 @@ public class FitSearchController implements Initializable {
                                 if(matchedItemFound.isPresent()) {
 
                                     label.textProperty().bind(Bindings.when(observable)
-                                            .then(matchedItemFound.get().getName() + " " + matchedItemFound.get().getServing_size_g()
-                                                    + "g" + " kcal: " + matchedItemFound.get().getCalories()
-                                                    + " protein: " + matchedItemFound.get().getProtein_g() + " fat: " + matchedItemFound.get().getFat_total_g()
-                                                    + " carbs: " + matchedItemFound.get().getCarbohydrates_total_g())
-                                            .otherwise(matchedItemFound.get().getName() + " " + matchedItemFound.get().getServing_size_g()
-                                                    + "g" + " kcal: " + matchedItemFound.get().getCalories()
-                                                    + " protein: " + matchedItemFound.get().getProtein_g() + " fat: " + matchedItemFound.get().getFat_total_g()
-                                                    + " carbs: " + matchedItemFound.get().getCarbohydrates_total_g()));
+                                            .then(setProductLabelInListView(matchedItemFound))
+                                            .otherwise(setProductLabelInListView(matchedItemFound)));
                                 }
                             }
                             case LUNCH -> {
@@ -291,14 +279,8 @@ public class FitSearchController implements Initializable {
                                 if(matchedItemFound.isPresent()) {
 
                                     label.textProperty().bind(Bindings.when(observable)
-                                            .then(matchedItemFound.get().getName() + " " + matchedItemFound.get().getServing_size_g()
-                                                    + "g" + " kcal: " + matchedItemFound.get().getCalories()
-                                                    + " protein: " + matchedItemFound.get().getProtein_g() + " fat: " + matchedItemFound.get().getFat_total_g()
-                                                    + " carbs: " + matchedItemFound.get().getCarbohydrates_total_g())
-                                            .otherwise(matchedItemFound.get().getName() + " " + matchedItemFound.get().getServing_size_g()
-                                                    + "g" + " kcal: " + matchedItemFound.get().getCalories()
-                                                    + " protein: " + matchedItemFound.get().getProtein_g() + " fat: " + matchedItemFound.get().getFat_total_g()
-                                                    + " carbs: " + matchedItemFound.get().getCarbohydrates_total_g()));
+                                            .then(setProductLabelInListView(matchedItemFound))
+                                            .otherwise(setProductLabelInListView(matchedItemFound)));
                                 }
                             }
                             case SNACK -> {
@@ -308,14 +290,8 @@ public class FitSearchController implements Initializable {
                                 if(matchedItemFound.isPresent()) {
 
                                     label.textProperty().bind(Bindings.when(observable)
-                                            .then(matchedItemFound.get().getName() + " " + matchedItemFound.get().getServing_size_g()
-                                                    + "g" + " kcal: " + matchedItemFound.get().getCalories()
-                                                    + " protein: " + matchedItemFound.get().getProtein_g() + " fat: " + matchedItemFound.get().getFat_total_g()
-                                                    + " carbs: " + matchedItemFound.get().getCarbohydrates_total_g())
-                                            .otherwise(matchedItemFound.get().getName() + " " + matchedItemFound.get().getServing_size_g()
-                                                    + "g" + " kcal: " + matchedItemFound.get().getCalories()
-                                                    + " protein: " + matchedItemFound.get().getProtein_g() + " fat: " + matchedItemFound.get().getFat_total_g()
-                                                    + " carbs: " + matchedItemFound.get().getCarbohydrates_total_g()));
+                                            .then(setProductLabelInListView(matchedItemFound))
+                                            .otherwise(setProductLabelInListView(matchedItemFound)));
                                 }
                             }
                             case DINNER -> {
@@ -325,26 +301,25 @@ public class FitSearchController implements Initializable {
                                 if(matchedItemFound.isPresent()) {
 
                                     label.textProperty().bind(Bindings.when(observable)
-                                            .then(matchedItemFound.get().getName() + " " + matchedItemFound.get().getServing_size_g()
-                                                    + "g" + " kcal: " + matchedItemFound.get().getCalories()
-                                                    + " protein: " + matchedItemFound.get().getProtein_g() + " fat: " + matchedItemFound.get().getFat_total_g()
-                                                    + " carbs: " + matchedItemFound.get().getCarbohydrates_total_g())
-                                            .otherwise(matchedItemFound.get().getName() + " " + matchedItemFound.get().getServing_size_g()
-                                                    + "g" + " kcal: " + matchedItemFound.get().getCalories()
-                                                    + " protein: " + matchedItemFound.get().getProtein_g() + " fat: " + matchedItemFound.get().getFat_total_g()
-                                                    + " carbs: " + matchedItemFound.get().getCarbohydrates_total_g()));
+                                            .then(setProductLabelInListView(matchedItemFound))
+                                            .otherwise(setProductLabelInListView(matchedItemFound)));
                                 }
                             }
                         };
-
                     }
-
                     HBox hbox = new HBox(10);
                     hbox.getChildren().addAll(checkBox, label);
                     setGraphic(hbox);
                 }
             }
         });
+    }
+
+    private String setProductLabelInListView(Optional<Items> matchedItemFound) {
+        return matchedItemFound.get().getName() + " " + matchedItemFound.get().getServing_size_g()
+                + "g" + " kcal: " + matchedItemFound.get().getCalories()
+                + " protein: " + matchedItemFound.get().getProtein_g() + " fat: " + matchedItemFound.get().getFat_total_g()
+                + " carbs: " + matchedItemFound.get().getCarbohydrates_total_g();
     }
 
     private void setCheckBoxListCellsFromMap() {

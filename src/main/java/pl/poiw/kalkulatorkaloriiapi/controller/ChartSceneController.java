@@ -15,8 +15,6 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.poiw.kalkulatorkaloriiapi.HelloApplication;
-import pl.poiw.kalkulatorkaloriiapi.model.apiproduct.Items;
-import pl.poiw.kalkulatorkaloriiapi.model.meal.BreakfastModelDB;
 import pl.poiw.kalkulatorkaloriiapi.model.meal.SummaryDB;
 
 import java.io.IOException;
