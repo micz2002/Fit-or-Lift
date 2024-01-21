@@ -12,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import pl.poiw.kalkulatorkaloriiapi.HelloApplication;
 import pl.poiw.kalkulatorkaloriiapi.model.meal.SummaryDB;
@@ -26,8 +25,6 @@ public class ChartSceneController implements Initializable {
     private Parent root;
     @FXML
     private PieChart pieChart;
-    @FXML
-    private Label valueLabel;
 
     @FXML
     public void switchToPreviousScene(ActionEvent event) throws IOException {
@@ -49,21 +46,6 @@ public class ChartSceneController implements Initializable {
 
             pieChart.getData().addAll(pieChartData);
 
-
-//            valueLabel.setTextFill(Color.BLACK);
-//            valueLabel.setStyle("-fx-font: 12 arial;");
-
-//            for (final PieChart.Data data : pieChart.getData()) {
-//                data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-//                    System.out.println("pie chart click");
-//                    valueLabel.setTranslateX(event.getSceneX() - valueLabel.getLayoutX());
-//                    valueLabel.setTranslateY(event.getSceneY() - valueLabel.getLayoutY());
-//                    valueLabel.setText(String.format("%.2fg", data.getPieValue()));
-//                });
-//                data.getNode().addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-//                    data.getNode().setCursor(Cursor.HAND);
-//                });
-//            }
             pieChartData.forEach(data ->
                         data.nameProperty().bind(
                                 Bindings.concat(

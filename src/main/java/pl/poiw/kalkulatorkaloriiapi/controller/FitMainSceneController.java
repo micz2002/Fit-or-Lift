@@ -56,8 +56,6 @@ public class FitMainSceneController implements Initializable {
         switchScene(event, "chartScene.fxml");
     }
 
-    //zrobic tak aby przekazywac info o tym jaki posilek jest wybrany np poprzez wyslanie info do labela na scenie nastepej
-    //a potem odczytanie go i na tej podstawie uzywac odpowiednich struktur z ModelDB
     @FXML
     public void switchToBreakfastFitSearchScene(ActionEvent event) throws IOException {
         MealDB.setMeal(Meal.BREAKFAST);
@@ -510,7 +508,6 @@ public class FitMainSceneController implements Initializable {
                 + " F: " + fatTotal + " C: " + carbohydratesTotal);
 
         summaryLabel.setStyle("-fx-font-weight: 600;");
-
 
     }
 }

@@ -16,7 +16,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxListCell;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import pl.poiw.kalkulatorkaloriiapi.HelloApplication;
@@ -33,14 +32,10 @@ public class FitSearchController implements Initializable {
     @FXML
     private TextField kcalTextField;
     @FXML
-    private AnchorPane mainContainer;
-    @FXML
-    private Button getButton;
-    @FXML
     private TextField productTextField;
     @FXML
     private ListView<String> foodListView;
-    //musi byc albo do osobnej klasy albo cos innego bo sie resetuje i dupa a nie poprawny zapis labela w listView
+
     List<Items> auxiliaryItems = new ArrayList<>();
     private Parent root;
 
@@ -78,18 +73,7 @@ public class FitSearchController implements Initializable {
                 for (Items i : items) {
 
                     kcalTextField.setText(i.getCalories() + " kcal/100g");
-                    //foodListView.getItems().add("name: " + i.getName() + ", kcal/100g: " + i.getCalories());
 
-                    //COS TU NEI DZIALA [ogolnie ten kod ma zapobiegac duplikatom przy wywolywaniu api
-//                    if(!foodListView.getItems().isEmpty()) {
-//                        for (String s : foodListView.getItems()) {
-//                            boolean equalItems = i.toString().equals(s);
-//                            if (equalItems) {
-//                                foodListView.getItems().add(i.toString());
-//                                ModelDB.getObservableListItems().add(i);
-//                            }
-//                        }
-//                    }else {
                     auxiliaryItems.add(i);
                     foodListView.getItems().add(i.toString());
                     switch (MealDB.getMeal()) {
@@ -102,7 +86,7 @@ public class FitSearchController implements Initializable {
 
                 }
                 setCheckBoxListCells(auxiliaryItems);
-                //zapisuje elementy z listy do statycznej listy Stringow
+                /**zapisuje elementy z listy do statycznej listy Stringow **/
                 switch (MealDB.getMeal()) {
                     case BREAKFAST -> BreakfastModelDB.setItemsAsStringList(foodListView.getItems());
                     case BRUNCH -> BrunchModelDB.setItemsAsStringList(foodListView.getItems());
@@ -110,22 +94,7 @@ public class FitSearchController implements Initializable {
                     case SNACK -> SnackModelDB.setItemsAsStringList(foodListView.getItems());
                     case DINNER -> DinnerModelDB.setItemsAsStringList(foodListView.getItems());
                 }
-//                foodListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-//                    @Override
-//                    public ListCell<String> call(ListView<String> param) {
-//                        return new ListCell<String>() {
-//                            @Override
-//                            protected void updateItem(String item, boolean empty) {
-//                                super.updateItem(item, empty);
-//                                if (item == null || empty) {
-//                                    setText(null);
-//                                } else {
-//                                    setText("cos jest");
-//                                }
-//                            }
-//                        };
-//                    }
-//                });
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -172,42 +141,6 @@ public class FitSearchController implements Initializable {
     }
 
     private void setCheckBoxListCells(List<Items> i) {
-//        foodListView.setCellFactory(CheckBoxListCell.forListView(item -> {
-//            BooleanProperty observable = new SimpleBooleanProperty();
-//            switch (MealDB.getMeal()) {
-//                case BREAKFAST -> observable = BreakfastModelDB.getStringBooleanPropertyMap().get(item);
-//                case BRUNCH -> observable = BrunchModelDB.getStringBooleanPropertyMap().get(item);
-//                case LUNCH -> observable = LunchModelDB.getStringBooleanPropertyMap().get(item);
-//                case SNACK -> observable = SnackModelDB.getStringBooleanPropertyMap().get(item);
-//                case DINNER -> observable = DinnerModelDB.getStringBooleanPropertyMap().get(item);
-//            }
-//
-//            if (observable == null) {
-//                observable = new SimpleBooleanProperty(false); // Domyślnie ustaw na false, jeśli nie ma jeszcze wartości
-//                BooleanProperty finalObservable = observable;
-//                observable.addListener((obs, wasSelected, isNowSelected) -> {
-//                    System.out.println("Check box for " + item + " changed from " + wasSelected + " to " + isNowSelected);
-//                    if (isNowSelected) {
-//                        System.out.println(item);
-//                    }
-//                    //wycina fragment "name" to mialo sluzyc do sprawdzenia czy 2 produkty maja taka sama nazwe
-////                    if (finalObservable.getValue()) {
-////                        int startIndex = item.indexOf("name = ") + "name = ".length();
-////                        int endIndex = item.indexOf(",", startIndex);
-////                        String nameValue = item.substring(startIndex, endIndex).trim();
-////                        System.out.println(nameValue);
-////                    }
-//                });
-//                switch (MealDB.getMeal()) {
-//                    case BREAKFAST -> BreakfastModelDB.getStringBooleanPropertyMap().put(item, observable);
-//                    case BRUNCH -> BrunchModelDB.getStringBooleanPropertyMap().put(item, observable);
-//                    case LUNCH -> LunchModelDB.getStringBooleanPropertyMap().put(item, observable);
-//                    case SNACK -> SnackModelDB.getStringBooleanPropertyMap().put(item, observable);
-//                    case DINNER -> DinnerModelDB.getStringBooleanPropertyMap().put(item, observable);
-//                }
-//            }
-//            return observable;
-//        }));
 
         foodListView.setCellFactory(param -> new ListCell<String>() {
             private final CheckBox checkBox = new CheckBox();

@@ -16,9 +16,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 import javafx.util.converter.FloatStringConverter;
 import pl.poiw.kalkulatorkaloriiapi.HelloApplication;
-import pl.poiw.kalkulatorkaloriiapi.model.apiproduct.Items;
 import pl.poiw.kalkulatorkaloriiapi.model.Macro;
-import pl.poiw.kalkulatorkaloriiapi.model.meal.BreakfastModelDB;
 import pl.poiw.kalkulatorkaloriiapi.model.meal.SummaryDB;
 
 import java.io.IOException;
@@ -42,6 +40,7 @@ public class NutrientsTableSceneController implements Initializable {
         stage.show();
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -53,7 +52,7 @@ public class NutrientsTableSceneController implements Initializable {
                 float sumPotassium = Float.parseFloat(SummaryDB.getSummaryItem().getPotassium_mg().replace(",", "."));
 
         listMacro = FXCollections.observableArrayList();
-//juz w gramach
+        //juz w gramach
         listMacro.add(new Macro("sodium", sumSodium));
         listMacro.add(new Macro("sugar", sumSugar));
         listMacro.add(new Macro("cholesterol", sumCholesterol ));
